@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@selendra/api": "^1.2.4",
+    "dotenv": "^16.0.2"
   }
 }
