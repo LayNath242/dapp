@@ -1,4 +1,3 @@
-
 import getSelendraApi from "./getSelendraApi";
 
 export const getSystemParameters = async () => {
