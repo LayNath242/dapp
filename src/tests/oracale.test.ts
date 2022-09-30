@@ -1,5 +1,6 @@
 import { createTestPairs } from '@polkadot/keyring/testingPairs';
-import { oracalFeedValude, oracalValues } from '../oracal';
+import { oracalFeedValues, oracalValues } from '../oracal';
+import BN from 'bn.js';
 
 const testPairs = createTestPairs();
 
@@ -9,36 +10,69 @@ const charlie = testPairs.charlie;
 const dave = testPairs.dave;
 const eve = testPairs.eve;
 
-const token = 'SEL';
-const price = 240_000_000_000;
+const nativeToken = 'SEL';
+const nativePrice = new BN("250000000000000000");
+
+const stableToken = 'KUSD';
+const stablePrice = new BN("1100000000000000000");
  
+// describe('testing Feed Oracale', () => {
+//   test('should work when feed value by alice', async () => {
+//     await oracalFeedValues(alice, nativeToken, nativePrice);
+//   });
+
+//   test('should work when feed value by bob', async () => {
+//     await oracalFeedValues(bob, nativeToken, nativePrice);
+//   });
+
+//   test('should work when feed value by charlie', async () => {
+//     await oracalFeedValues(charlie, nativeToken, nativePrice);
+//   });
+
+//   test('should work when feed value by dave', async () => {
+//     await oracalFeedValues(dave, nativeToken, nativePrice);
+//   });
+
+//   test('should work when feed value by eve', async () => {
+//     await oracalFeedValues(eve, nativeToken, nativePrice);
+//   });
+// });
+
 describe('testing Feed Oracale', () => {
   test('should work when feed value by alice', async () => {
-    await oracalFeedValude(alice, token, price);
+    await oracalFeedValues(alice, stableToken, stablePrice);
   });
 
   test('should work when feed value by bob', async () => {
-    await oracalFeedValude(bob, token, price);
+    await oracalFeedValues(bob, stableToken, stablePrice);
   });
 
   test('should work when feed value by charlie', async () => {
-    await oracalFeedValude(charlie, token, price);
+    await oracalFeedValues(charlie, stableToken, stablePrice);
   });
 
   test('should work when feed value by dave', async () => {
-    await oracalFeedValude(dave, token, price);
+    await oracalFeedValues(dave, stableToken, stablePrice);
   });
 
   test('should work when feed value by eve', async () => {
-    await oracalFeedValude(eve, token, price);
+    await oracalFeedValues(eve, stableToken, stablePrice);
   });
 });
 
 
 describe('testing Get Oracale price', () => {
-  test('should get value', async () => {
-    const result = await oracalValues(token);
+  test('should get native value ', async () => {
+    const result = await oracalValues(nativeToken);
     const value = JSON.parse(result ? result.toString() : '{"value": 0, "timestamp": 0}');
-    expect(value.value).toBe(price);
+    const nativeTokenPrice = new BN(parseInt(value.value).toString());
+    expect(nativeTokenPrice.toString()).toBe(nativePrice.toString());
+  });
+
+  test('should get stable value ', async () => {
+    const result = await oracalValues(stableToken);
+    const value = JSON.parse(result ? result.toString() : '{"value": 0, "timestamp": 0}');
+    const stableTokenPrice = new BN(parseInt(value.value).toString());
+    expect(stableTokenPrice.toString()).toBe(stablePrice.toString());
   });
 });

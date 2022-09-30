@@ -2,6 +2,7 @@
 import type { KeyringPair } from '@polkadot/keyring/types';
 import { RewriteFrames } from '@sentry/integrations';
 import * as Sentry from '@sentry/node';
+import BN from 'bn.js';
 import getSelendraApi from "../utils/getSelendraApi";
 import config from '../config';
 
@@ -15,7 +16,7 @@ Sentry.init({
     ],
 });
 
-export const oracalFeedValude = async (signer: KeyringPair, token: string, price: number) => {
+export const oracalFeedValues = async (signer: KeyringPair, token: string, price: BN) => {
   try {
     const api = await getSelendraApi();
     const extrinsic = api.tx.selendraOracle.feedValues([[{ Token: token }, price]])
