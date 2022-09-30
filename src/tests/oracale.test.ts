@@ -1,5 +1,5 @@
 import { createTestPairs } from '@polkadot/keyring/testingPairs';
-import { oracalFeedValues, oracalValues } from '../oracal';
+import { oracalFeedValues, oracalValues } from '../oracale';
 import BN from 'bn.js';
 
 const testPairs = createTestPairs();
